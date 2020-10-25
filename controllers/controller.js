@@ -23,23 +23,45 @@ exports.post_sign_up = (req, res, next) => {
     return;
   }
 
-  bcrypt.hash(password, 10, (err, hashedPassword) => {
-    if (err) return next(err);
-    const newUser = new User({
-      firstname,
-      lastname,
-      email,
-      username,
-      password: hashedPassword,
-      member: member || admin,
-      admin: admin,
-    });
-    newUser.save((err) => {
-      req.login(newUser, (err) => {
+  User.findOne({
+    $or: [
+      {
+        email: email,
+      },
+      {
+        username: username,
+      },
+    ],
+  }).then((user) => {
+    if (user) {
+      let error = {};
+      if (user.username === username) {
+        error.msg = "User Name already exists";
+      } else {
+        error.msg = "Email already exists";
+      }
+      res.render("sign-up", { errors: [error] });
+      return;
+    } else {
+      bcrypt.hash(password, 10, (err, hashedPassword) => {
         if (err) return next(err);
-        return res.redirect("/");
+        const newUser = new User({
+          firstname,
+          lastname,
+          email,
+          username,
+          password: hashedPassword,
+          member: member || admin,
+          admin: admin,
+        });
+        newUser.save((err) => {
+          req.login(newUser, (err) => {
+            if (err) return next(err);
+            return res.redirect("/");
+          });
+        });
       });
-    });
+    }
   });
 };
 

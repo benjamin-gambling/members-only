@@ -84,4 +84,9 @@ body {
       font-size: 20px;
       text-decoration: none; }
 
+.error-page a {
+  font-size: 25px;
+  font-weight: 600;
+  font-family: "Courier New", Courier, monospace; }
+
 /*# sourceMappingURL=style.css.map */

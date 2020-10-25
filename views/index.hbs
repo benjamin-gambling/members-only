@@ -1,28 +1,6 @@
 {{#if currentUser}}
-<div class="header">
-    <h2>MEMBER$ ONLY</h2>
-    <div class="profile">
-        <a href="profile">
-        {{currentUser.fullname}}
-        <span class="member-status">
-        {{#if currentUser.admin}}
-        [ADMIN]
-        {{else}}
-            {{#if currentUser.member}}
-            [MEMBER]
-            {{else}}
-            [VIEWER]
-            {{/if}}
-        {{/if}}
-        </span>
-        </a> |
-        <a href="/log-out">Logout</a>
-    </div>
-</div>
-<div>
-
-</div>
-
+{{> header}}
+{{> comments}}
 {{else}}
     <div>
         <h1>MEMBER$ ONLY</h1>

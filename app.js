@@ -37,7 +37,6 @@ passport.use(
           return done(null, false, { message: "Incorrect password" });
         }
       });
-      console.log(user);
     });
   })
 );
@@ -51,6 +50,10 @@ passport.deserializeUser(function (id, done) {
     done(err, user);
   });
 });
+
+const hbs = require("hbs");
+
+hbs.registerPartials(__dirname + "/views");
 
 //Set up mongoose connection
 var mongoose = require("mongoose");
