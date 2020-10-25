@@ -1,0 +1,87 @@
+body {
+  background-color: #4f2683;
+  color: #fcc52c;
+  height: 100vh;
+  max-width: 80vw;
+  padding: 25px;
+  margin: auto;
+  font-size: 20px;
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  text-transform: uppercase; }
+  body div {
+    text-align: center; }
+    body div h1 {
+      margin-bottom: 10px;
+      text-decoration: underline;
+      letter-spacing: 1px; }
+    body div form {
+      display: flex;
+      flex-direction: column; }
+      body div form input {
+        font-family: "Courier New", Courier, monospace;
+        font-weight: 600;
+        margin: 10px;
+        font-size: 15px;
+        padding: 4px;
+        outline: none; }
+      body div form input::placeholder {
+        color: #4e2683a8;
+        font-weight: 600; }
+      body div form button {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 10px 60px;
+        padding: 4px;
+        background-color: #fcc52c;
+        color: #4f2683;
+        outline: none;
+        border: none;
+        border-radius: 2px; }
+    body div a {
+      font-size: 18px;
+      color: #fcc52c; }
+
+.errors {
+  list-style-type: none;
+  padding: 0px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px; }
+  .errors li {
+    text-align: center; }
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px; }
+  .header .profile {
+    display: inline-flex;
+    font-size: 20px;
+    font-weight: 600;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 1px; }
+    .header .profile h4 {
+      padding: 0px 15px;
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center; }
+      .header .profile h4 span {
+        font-size: smaller;
+        padding: 0px 0px 0px 5px; }
+    .header .profile a {
+      padding: 0px 15px;
+      font-size: 20px;
+      text-decoration: none; }
+
+/*# sourceMappingURL=style.css.map */
