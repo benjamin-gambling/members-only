@@ -1,3 +1,17 @@
-<div>
-
+<div class="fade-top"></div>
+{{#each comments}}
+<div class="comment">
+    <p class="text">{{text}}</p>
+    {{#if @root.currentUser.member}}
+    <div>
+        <p>{{timeSince createdAt}} ago</p>
+        <p>{{user.fullname}}</p>   
+    </div>
+    {{/if}}
 </div>
+{{/each}}
+{{#if currentUser.member}}
+    <button id="open-message-box">Add Comment</button>
+{{/if}}
+<div class="fade-bottom"></div>
+

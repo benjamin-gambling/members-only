@@ -1,11 +1,18 @@
 const User = require("../models/user");
 const Comment = require("../models/comment");
-const moment = require("moment");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 
 exports.home = (req, res, next) => {
-  res.render("index", { user: req.user, message: req.flash("error") });
+  Comment.find()
+    .populate("user")
+    .then((comments) => {
+      res.render("index", {
+        user: req.user,
+        message: req.flash("error"),
+        comments: comments.reverse(),
+      });
+    });
 };
 
 exports.sign_up = (req, res, next) => res.render("sign-up");
@@ -65,7 +72,19 @@ exports.post_sign_up = (req, res, next) => {
   });
 };
 
-exports.log_out = (req, res) => {
+exports.log_out = (req, res, next) => {
   req.logout();
   res.redirect("/");
+};
+
+exports.new_message = (req, res, next) => {
+  const newComment = new Comment({
+    text: req.body.comment,
+    user: req.user.id,
+  });
+
+  newComment.save((err) => {
+    if (err) return err;
+    return res.redirect("/");
+  });
 };

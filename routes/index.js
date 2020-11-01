@@ -46,4 +46,6 @@ router.post(
 
 router.get("/log-out", Controller.log_out);
 
+router.post("/new-message", Controller.new_message);
+
 module.exports = router;

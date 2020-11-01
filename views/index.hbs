@@ -1,6 +1,9 @@
 {{#if currentUser}}
 {{> header}}
+{{> newComment}}
+<div class="comments">
 {{> comments}}
+</div>
 {{else}}
     <div>
         <h1>MEMBER$ ONLY</h1>

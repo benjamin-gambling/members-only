@@ -9,7 +9,6 @@ const UserSchema = new Schema({
   email: { type: String, required: true },
   member: { type: Boolean, required: true },
   admin: { type: Boolean, required: true },
-  messages: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
 });
 
 UserSchema.virtual("fullname").get(function () {
