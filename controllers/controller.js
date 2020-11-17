@@ -12,7 +12,8 @@ exports.home = (req, res, next) => {
         message: req.flash("error"),
         comments: comments.reverse(),
       });
-    });
+    })
+    .catch((e) => e);
 };
 
 exports.sign_up = (req, res, next) => res.render("sign-up");
@@ -39,37 +40,39 @@ exports.post_sign_up = (req, res, next) => {
         username: username,
       },
     ],
-  }).then((user) => {
-    if (user) {
-      let error = {};
-      if (user.username === username) {
-        error.msg = "User Name already exists";
+  })
+    .then((user) => {
+      if (user) {
+        let error = {};
+        if (user.username === username) {
+          error.msg = "User Name already exists";
+        } else {
+          error.msg = "Email already exists";
+        }
+        res.render("sign-up", { errors: [error] });
+        return;
       } else {
-        error.msg = "Email already exists";
-      }
-      res.render("sign-up", { errors: [error] });
-      return;
-    } else {
-      bcrypt.hash(password, 10, (err, hashedPassword) => {
-        if (err) return next(err);
-        const newUser = new User({
-          firstname,
-          lastname,
-          email,
-          username,
-          password: hashedPassword,
-          member: member || admin,
-          admin: admin,
-        });
-        newUser.save((err) => {
-          req.login(newUser, (err) => {
-            if (err) return next(err);
-            return res.redirect("/");
+        bcrypt.hash(password, 10, (err, hashedPassword) => {
+          if (err) return next(err);
+          const newUser = new User({
+            firstname,
+            lastname,
+            email,
+            username,
+            password: hashedPassword,
+            member: member || admin,
+            admin: admin,
+          });
+          newUser.save((err) => {
+            req.login(newUser, (err) => {
+              if (err) return next(err);
+              return res.redirect("/");
+            });
           });
         });
-      });
-    }
-  });
+      }
+    })
+    .catch((e) => e);
 };
 
 exports.log_out = (req, res, next) => {
