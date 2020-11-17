@@ -3,27 +3,28 @@ const Comment = require("../models/comment");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 
-exports.home = (req, res, next) => {
-  Comment.find()
-    .populate("user")
-    .then((comments) => {
-      res.render("index", {
-        user: req.user,
-        message: req.flash("error"),
-        comments: comments.reverse(),
+exports.home = async (req, res, next) => {
+  try {
+    Comment.find()
+      .populate("user")
+      .then((comments) => {
+        res.render("index", {
+          user: req.user,
+          message: req.flash("error"),
+          comments: comments.reverse(),
+        });
       });
-    })
-    .catch((e) => e);
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.sign_up = (req, res, next) => res.render("sign-up");
 
-exports.post_sign_up = (req, res, next) => {
+exports.post_sign_up = async (req, res, next) => {
   const { firstname, lastname, username, email, password, secret } = req.body;
-
   const member = secret === process.env.MEMBER_CODE;
   const admin = secret === process.env.ADMIN_CODE;
-
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -31,17 +32,17 @@ exports.post_sign_up = (req, res, next) => {
     return;
   }
 
-  User.findOne({
-    $or: [
-      {
-        email: email,
-      },
-      {
-        username: username,
-      },
-    ],
-  })
-    .then((user) => {
+  try {
+    User.findOne({
+      $or: [
+        {
+          email: email,
+        },
+        {
+          username: username,
+        },
+      ],
+    }).then((user) => {
       if (user) {
         let error = {};
         if (user.username === username) {
@@ -71,8 +72,10 @@ exports.post_sign_up = (req, res, next) => {
           });
         });
       }
-    })
-    .catch((e) => e);
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.log_out = (req, res, next) => {
