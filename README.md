@@ -18,7 +18,7 @@
 
 - Node/Express
 - PassportJS
-- EJS
+- Handlebars
 
 ## Features
 
