@@ -12,6 +12,8 @@
 
 ## Demo
 
+[https://bgwd-members-only.herokuapp.com/](https://bgwd-members-only.herokuapp.com/)
+
 ## Technologies
 
 - Node/Express
